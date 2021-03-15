@@ -11,16 +11,25 @@ import Swal from 'sweetalert2';
 })
 export class TodosComponent implements OnInit {
  todos : TodoModel[]=[];
+ cargando = false;
   constructor(private todoService : TodoService) { }
 
   ngOnInit(): void {
+    this.cargando = true;
     this.listTodos();
 
   }
 
   listTodos(){
   this.todoService.getTodos()
-  .subscribe(resp => this.todos = resp);
+  .subscribe(resp => {
+    this.todos = resp;
+    this.cargando = false;
+
+  });
+
+
+
 
   }
 

@@ -1,4 +1,4 @@
-<h1>Tarea <small>Nombre de la tarea</small> </h1>
+<h1>Tarea <small>{{todo.nombre}}</small> </h1>
 <hr>
 
 
@@ -20,17 +20,6 @@
     <form (ngSubmit)="guardar( f )"
           #f="ngForm">
 
-      <!-- <div class="form-group">
-        <label>Firebase ID</label>
-        <input type="text"
-               class="form-control"
-               placeholder="Firebase ID"
-               [(ngModel)]="todo.id"
-               name="id"
-               disabled="disabled">
-        <small class="form-text text-muted">Este campo es autogenerado</small>
-      </div> -->
-
 
       <div class="form-group">
           <label>Nombre</label>
@@ -51,22 +40,7 @@
                  placeholder="Descripción">
       </div>
 
-      <!-- <div class="form-group">
-        <label>Fecha de creación</label>
-        <input type="text"
-               class="form-control"
-               [(ngModel)]="todo.fechaCreacion"
-               name="fechaCreacion"
-               >
-    </div> -->
-    <!-- <div class="form-group">
-      <label>Fecha de actualización</label>
-      <input type="text"
-             class="form-control"
-             [(ngModel)]="todo.fechaActualizacion"
-             name="fechaActualizacion"
-             >
-  </div> -->
+
 
       <div class="form-group">
         <label>Estado</label>
@@ -74,14 +48,14 @@
 
         <button *ngIf="todo.estado"
                 (click)="todo.estado = false"
-                class="btn btn-outline-success w-50" type="button">
+                class="btn btn-outline-danger w-50" type="button">
           <i class="fa fa-smile-wink"></i>
-          Activa
+          Pendiente
         </button>
 
         <button *ngIf="!todo.estado"
                 (click)="todo.estado = true"
-                class="btn btn-outline-danger w-50" type="button">
+                class="btn btn-outline-success w-50" type="button">
             <i class="fa fa-smile-wink"></i>
             Finalizada
         </button>
