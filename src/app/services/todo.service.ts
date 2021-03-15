@@ -24,6 +24,17 @@ newTodo( todo: TodoModel){
     );
 }
 
+updateTodo(todo : TodoModel){
+  const todoTemp = {
+    ...todo
+  };
+  delete todoTemp.id;
+  todoTemp.fechaActualizacion = new Date();
+
+
+  return this.http.put(`${this.url}/todo/${todo.id}.json`, todoTemp );
+}
+
 }
 
 

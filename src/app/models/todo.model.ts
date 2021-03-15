@@ -2,7 +2,7 @@ export class TodoModel {
 
   id: string;
   nombre: string;
-  descripcion: string;
+  descripcion?: string;
   fechaCreacion: Date;
   fechaActualizacion: Date;
   estado: boolean;

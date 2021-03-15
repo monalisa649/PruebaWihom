@@ -22,10 +22,24 @@ todo = new TodoModel();
       return;
     }
 
-    this.todoService.newTodo(this.todo)
-        .subscribe( (res: TodoModel)=>{
-          console.log(res);
-        });
+    if ( this.todo.id){
+      this.todoService.updateTodo(this.todo)
+      .subscribe( (res: TodoModel)=>{
+        console.log(res);
+
+      });
+
+    } else{
+
+      this.todoService.newTodo(this.todo)
+      .subscribe(resp => {
+        console.log(resp);
+        this.todo = resp
+      });
+
+    }
+
+
 
   }
 }
