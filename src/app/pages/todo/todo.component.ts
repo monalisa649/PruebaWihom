@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 import { TodoModel } from 'src/app/models/todo.model';
 import { TodoService } from 'src/app/services/todo.service';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-todo',
@@ -11,6 +14,7 @@ import { TodoService } from 'src/app/services/todo.service';
 })
 export class TodoComponent implements OnInit {
 todo = new TodoModel();
+
   constructor( private todoService : TodoService) { }
 
   ngOnInit(): void {
@@ -22,22 +26,42 @@ todo = new TodoModel();
       return;
     }
 
-    if ( this.todo.id){
-      this.todoService.updateTodo(this.todo)
-      .subscribe( (res: TodoModel)=>{
-        console.log(res);
+    Swal.fire({
+      title: 'Espere',
+      text: 'Guardando información',
+      icon: 'info',
+      allowOutsideClick: false
 
-      });
+    })
+
+    Swal.showLoading();
+
+    let peticion: Observable<any>;
+
+
+
+    if ( this.todo.id){
+      peticion = this.todoService.updateTodo(this.todo);
+
+
+
 
     } else{
 
-      this.todoService.newTodo(this.todo)
-      .subscribe(resp => {
-        console.log(resp);
-        this.todo = resp
-      });
+      peticion = this.todoService.newTodo(this.todo);
+
+
 
     }
+
+    peticion.subscribe(res=> {
+      Swal.fire({
+        title: this.todo.nombre,
+        text: 'Se actualizó correctamentte',
+        icon: 'success'
+
+      });
+    })
 
 
 
