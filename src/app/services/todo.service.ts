@@ -35,6 +35,42 @@ updateTodo(todo : TodoModel){
   return this.http.put(`${this.url}/todo/${todo.id}.json`, todoTemp );
 }
 
+getTodo(id: string){
+  return this.http.get(`${this.url}/todo/${id}.json`);
+}
+
+getTodos(){
+  return this.http.get(`${this.url}/todo.json`)
+  .pipe(
+    map(this.crearArreglo)
+  )
+}
+
+deleteTodo(id: string){
+
+  return this.http.delete(`${this.url}/todo/${id}.json`);
+}
+
+
+private crearArreglo(todoObj : object){
+
+  const todos : TodoModel[]=[];
+//Si no hay registros en firebase retorna arreglo vacio
+  if (todoObj == null){
+    return[];
+  }
+ //Extraer objeto y crear nueva referencia de todo
+  Object.keys(todoObj).forEach(key => {
+    const todo : TodoModel = todoObj[key];
+    todo.id= key;
+    todos.push( todo );
+
+  });
+
+  return todos;
+
+}
+
 }
 
 

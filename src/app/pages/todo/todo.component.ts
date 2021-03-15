@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { TodoModel } from 'src/app/models/todo.model';
@@ -15,9 +16,21 @@ import Swal from 'sweetalert2';
 export class TodoComponent implements OnInit {
 todo = new TodoModel();
 
-  constructor( private todoService : TodoService) { }
+  constructor( private todoService : TodoService,
+               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    //Obtener id que viene como parametro en la ruta
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (id !== 'nuevo'){
+      this.todoService.getTodo(id)
+      .subscribe((resp: TodoModel) =>{
+        this.todo = resp;
+        this.todo.id=id;
+
+      })
+    }
   }
 
   guardar( form : NgForm){

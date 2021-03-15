@@ -7,7 +7,7 @@ import { TodosComponent } from './pages/todos/todos.component';
 const routes: Routes = [
 
   {path:'todos', component: TodosComponent},
-  {path: 'todo', component: TodoComponent},
+  {path: 'todo/:id', component: TodoComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'todos'}
 ];
 
