@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { TodoModel } from 'src/app/models/todo.model';
@@ -17,7 +17,8 @@ export class TodoComponent implements OnInit {
 todo = new TodoModel();
 
   constructor( private todoService : TodoService,
-               private route: ActivatedRoute) { }
+               private route: ActivatedRoute,
+               private router: Router) { }
 
   ngOnInit(): void {
     //Obtener id que viene como parametro en la ruta
@@ -35,7 +36,12 @@ todo = new TodoModel();
 
   guardar( form : NgForm){
     if(form.invalid){
-      console.log('formulario no valido');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Formulario no es valido, llene los campos',
+        })
+
       return;
     }
 
@@ -74,6 +80,7 @@ todo = new TodoModel();
         icon: 'success'
 
       });
+      this.router.navigateByUrl('/todos');
     })
 
 

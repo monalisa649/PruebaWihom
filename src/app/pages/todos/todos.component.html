@@ -20,8 +20,8 @@
       <th scope="col">#</th>
       <th scope="col">Nombre</th>
       <th scope="col">Descripción</th>
-      <th scope="col">Fecha creación</th>
-      <th scope="col">Fecha actualización</th>
+      <th scope="col">Fecha de creación</th>
+      <th scope="col">Fecha de actualización</th>
       <th scope="col">Estado</th>
       <th scope="col">Acciones</th>
 
@@ -33,8 +33,8 @@
       <td>{{i+1}}</td>
       <td>{{todo.nombre}}</td>
       <td>{{todo.descripcion}}</td>
-      <td>{{todo.fechaCreacion | date}}</td>
-      <td>{{todo.fechaActualizacion}}</td>
+      <td>{{todo.fechaCreacion | date: 'medium'}}</td>
+      <td>{{todo.fechaActualizacion | date: 'medium'}}</td>
       <td>
 
         <label *ngIf="todo.estado" class="badge badge-danger">Pendiente</label>
