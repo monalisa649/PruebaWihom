@@ -11,36 +11,36 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.css']
+  styleUrls: ['./todo.component.css'],
 })
 export class TodoComponent implements OnInit {
-todo = new TodoModel();
+  todo = new TodoModel();
 
-  constructor( private todoService : TodoService,
-               private route: ActivatedRoute,
-               private router: Router) { }
+  constructor(
+    private todoService: TodoService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     //Obtener id que viene como parametro en la ruta
     const id = this.route.snapshot.paramMap.get('id');
 
-    if (id !== 'nuevo'){
-      this.todoService.getTodo(id)
-      .subscribe((resp: TodoModel) =>{
+    if (id !== 'nuevo') {
+      this.todoService.getTodo(id).subscribe((resp: TodoModel) => {
         this.todo = resp;
-        this.todo.id=id;
-
-      })
+        this.todo.id = id;
+      });
     }
   }
 
-  guardar( form : NgForm){
-    if(form.invalid){
+  guardar(form: NgForm) {
+    if (form.invalid) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Formulario no es valido, llene los campos',
-        })
+      });
 
       return;
     }
@@ -49,41 +49,26 @@ todo = new TodoModel();
       title: 'Espere',
       text: 'Guardando información',
       icon: 'info',
-      allowOutsideClick: false
-
-    })
+      allowOutsideClick: false,
+    });
 
     Swal.showLoading();
 
     let peticion: Observable<any>;
 
-
-
-    if ( this.todo.id){
+    if (this.todo.id) {
       peticion = this.todoService.updateTodo(this.todo);
-
-
-
-
-    } else{
-
+    } else {
       peticion = this.todoService.newTodo(this.todo);
-
-
-
     }
 
-    peticion.subscribe(res=> {
+    peticion.subscribe((res) => {
       Swal.fire({
         title: this.todo.nombre,
         text: 'Se actualizó correctamentte',
-        icon: 'success'
-
+        icon: 'success',
       });
       this.router.navigateByUrl('/todos');
-    })
-
-
-
+    });
   }
 }

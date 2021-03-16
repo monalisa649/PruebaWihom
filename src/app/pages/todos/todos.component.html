@@ -1,20 +1,16 @@
 <h1>Lista de tareas</h1>
-<hr>
-
+<hr />
 
 <div class="row">
   <div class="col text-right">
-    <button routerLink="/todo/nuevo"
-            class="btn btn-primary">
+    <button routerLink="/todo/nuevo" class="btn btn-primary">
       <i class="fa fa-plus"></i>
       Agregar
     </button>
   </div>
 </div>
 
-
-<table
-       class="table mt-3 animated fadeIn faster animated fadeIn faster">
+<table class="table mt-3 animated fadeIn faster animated fadeIn faster">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
@@ -24,57 +20,51 @@
       <th scope="col">Fecha de actualización</th>
       <th scope="col">Estado</th>
       <th scope="col">Acciones</th>
-
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let todo of todos; let i = index">
-
-      <td>{{i+1}}</td>
-      <td>{{todo.nombre}}</td>
-      <td>{{todo.descripcion}}</td>
-      <td>{{todo.fechaCreacion | date: 'medium'}}</td>
-      <td>{{todo.fechaActualizacion | date: 'medium'}}</td>
+      <td>{{ i + 1 }}</td>
+      <td>{{ todo.nombre }}</td>
+      <td>{{ todo.descripcion }}</td>
+      <td>{{ todo.fechaCreacion | date: "medium" }}</td>
+      <td>{{ todo.fechaActualizacion | date: "medium" }}</td>
       <td>
-
         <label *ngIf="todo.estado" class="badge badge-danger">Pendiente</label>
-        <label *ngIf="!todo.estado" class="badge badge-success">Terminada</label>
-
+        <label *ngIf="!todo.estado" class="badge badge-success"
+          >Terminada</label
+        >
       </td>
       <td>
-
-        <button class="btn btn-info mr-1"
-                [routerLink]="['/todo', todo.id]">
+        <button class="btn btn-info mr-1" [routerLink]="['/todo', todo.id]">
           <i class="fa fa-pen"></i>
         </button>
 
-        <button class="btn btn-danger"
-                (click)="deleteTodo(todo,i)">
+        <button class="btn btn-danger" (click)="deleteTodo(todo, i)">
           <i class="fa fa-trash"></i>
         </button>
-
-
       </td>
     </tr>
   </tbody>
 </table>
 
-
-<div *ngIf="!cargando && todos.length === 0"
-     class="alert alert-warning text-center mt-3 animated fadeIn faster">
-    <h4 class="alert-heading">No hay registros</h4>
-    <p>
-      <i class="fa fa-exclamation fa-2x"></i>
-    </p>
+<div
+  *ngIf="!cargando && todos.length === 0"
+  class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2x"></i>
+  </p>
 </div>
 
-<div *ngIf="cargando"
-     class="alert alert-info text-center mt-3 animated fadeIn faster">
+<div
+  *ngIf="cargando"
+  class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
   <h4 class="alert-heading">Cargando</h4>
   <p>
     <i class="fa fa-sync-alt fa-spin fa-2x"></i>
   </p>
-  <p class="mb-0">
-    Espere por favor
-  </p>
+  <p class="mb-0">Espere por favor</p>
 </div>
